@@ -20,576 +20,273 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#0c0c0a;
-  --ink-soft:#3e3e38;
-  --ink-muted:#808078;
-  --bg:#f7f5ef;
-  --bg-card:#ffffff;
-  --dark:#0e1a12;
-  --dark-mid:#162011;
-  --green:#1a5c38;
-  --green-hover:#236b44;
-  --green-light:#e5f2ea;
-  --green-pale:#f0f8f3;
-  --gold:#b8900c;
-  --gold-pale:#fdf8e6;
-  --border:rgba(12,12,10,0.09);
-  --border-strong:rgba(12,12,10,0.17);
-  --radius:6px;
-  --radius-lg:12px;
-  --shadow:0 4px 24px rgba(0,0,0,0.08);
-  --shadow-lg:0 8px 48px rgba(0,0,0,0.13);
+  --ink:#0c0c0a;--ink-soft:#3e3e38;--ink-muted:#808078;
+  --bg:#f7f5ef;--bg-card:#ffffff;
+  --dark:#0e1a12;--dark-mid:#162011;
+  --green:#1a5c38;--green-hover:#236b44;--green-light:#e5f2ea;--green-pale:#f0f8f3;
+  --gold:#b8900c;--gold-pale:#fdf8e6;
+  --border:rgba(12,12,10,0.09);--border-strong:rgba(12,12,10,0.17);
+  --radius:6px;--radius-lg:12px;
+  --shadow:0 4px 24px rgba(0,0,0,0.08);--shadow-lg:0 8px 48px rgba(0,0,0,0.13);
 }
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:Georgia,serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
-.sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
 
-/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.d1{transition-delay:0.05s}.d2{transition-delay:0.12s}.d3{transition-delay:0.19s}.d4{transition-delay:0.26s}
+.d1{transition-delay:0.05s}.d2{transition-delay:0.12s}.d3{transition-delay:0.19s}
 
 /* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  height:68px;padding:0 5%;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(247,245,239,0.97);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  transition:box-shadow 0.3s;
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,245,239,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow 0.3s}
 nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08)}
 .nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
-.nav-logo-text{font-size:1rem;font-weight:700;color:var(--green);letter-spacing:-0.01em;white-space:nowrap}
+.nav-logo-text{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:1rem;font-weight:700;color:var(--green);white-space:nowrap}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.nav-links a{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);transition:color 0.2s}
+.nav-links a{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);transition:color 0.2s}
 .nav-links a:hover{color:var(--green)}
-.nav-cta{background:var(--green) !important;color:#fff !important;padding:0.5rem 1.3rem;border-radius:4px;transition:background 0.2s !important}
-.nav-cta:hover{background:var(--green-hover) !important}
-.hamburger{display:none;background:none;border:none;padding:6px;cursor:pointer;flex-direction:column;gap:5px;align-items:flex-end}
-.hamburger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all 0.3s}
-.hamburger span:nth-child(1){width:24px}
+.nav-cta{background:var(--green)!important;color:#fff!important;padding:0.5rem 1.3rem;border-radius:4px}
+.nav-cta:hover{background:var(--green-hover)!important}
+.hamburger{display:none;background:none;border:none;padding:6px;cursor:pointer;flex-direction:column;gap:5px}
+.hamburger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all 0.3s;width:24px}
 .hamburger span:nth-child(2){width:18px}
-.hamburger span:nth-child(3){width:24px}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .hamburger.open span:nth-child(2){opacity:0;width:0}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mobile-menu{
-  display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
-  background:var(--dark);z-index:499;
-  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
-  opacity:0;transition:opacity 0.3s;
-}
-.mobile-menu.open{display:flex;opacity:1}
-.mobile-menu a{font-size:1.8rem;font-weight:700;color:#fff;letter-spacing:-0.01em}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--dark);z-index:499;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:1.8rem;font-weight:700;color:#fff}
 .mobile-menu a:hover{color:#6dbf96}
-.mobile-menu .mob-cta{background:var(--green);padding:0.9rem 2.5rem;border-radius:4px;font-size:1.1rem}
+.mob-cta{background:var(--green);padding:0.9rem 2.5rem!important;border-radius:4px;font-size:1.1rem!important}
 
 /* HERO */
-.hero{
-  min-height:100vh;padding-top:68px;
-  display:grid;grid-template-columns:55% 45%;
-  position:relative;overflow:hidden;
-}
-.hero-left{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:4rem 4% 4rem 8%;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);
-  margin-bottom:1.5rem;animation:fadeUp 0.5s ease both;
-}
+.hero{min-height:100vh;padding-top:68px;display:grid;grid-template-columns:55% 45%;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 4% 4rem 8%}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem;animation:fadeUp 0.5s ease both}
 .hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--green);display:block}
-.hero h1{
-  font-size:clamp(2.5rem,5vw,4rem);line-height:1.08;
-  letter-spacing:-0.02em;color:var(--ink);
-  animation:fadeUp 0.5s 0.07s ease both;
-}
+.hero h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.08;letter-spacing:-0.02em;color:var(--ink);animation:fadeUp 0.5s 0.07s ease both}
 .hero h1 em{font-style:italic;color:var(--green)}
-.hero-sub{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:1.05rem;font-weight:400;color:var(--ink-soft);
-  max-width:460px;margin-top:1.5rem;line-height:1.8;
-  animation:fadeUp 0.5s 0.14s ease both;
-}
+.hero-sub{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:1.05rem;color:var(--ink-soft);max-width:460px;margin-top:1.5rem;line-height:1.8;animation:fadeUp 0.5s 0.14s ease both}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.25rem;animation:fadeUp 0.5s 0.21s ease both}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--green);color:#fff;
-  padding:0.9rem 2rem;border-radius:4px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.875rem;font-weight:700;letter-spacing:0.04em;
-  transition:background 0.2s,transform 0.15s,box-shadow 0.2s;
-  box-shadow:0 4px 16px rgba(26,92,56,0.3);
-}
-.btn-primary:hover{background:var(--green-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,92,56,0.35)}
-.btn-primary:active{transform:translateY(0)}
-.btn-ghost{
-  display:inline-flex;align-items:center;
-  color:var(--ink);border:1.5px solid var(--border-strong);
-  padding:0.9rem 1.75rem;border-radius:4px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.875rem;font-weight:600;
-  transition:all 0.2s;
-}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:0.9rem 2rem;border-radius:4px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.875rem;font-weight:700;letter-spacing:0.04em;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 16px rgba(26,92,56,0.3)}
+.btn-primary:hover{background:var(--green-hover);transform:translateY(-2px)}
+.btn-ghost{display:inline-flex;align-items:center;color:var(--ink);border:1.5px solid var(--border-strong);padding:0.9rem 1.75rem;border-radius:4px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.875rem;font-weight:600;transition:all 0.2s}
 .btn-ghost:hover{border-color:var(--green);color:var(--green)}
-.hero-trust{
-  display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;
-  animation:fadeUp 0.5s 0.28s ease both;
-}
-.trust-item{
-  display:flex;align-items:center;gap:7px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.78rem;font-weight:600;color:var(--ink-muted);letter-spacing:0.03em;
-}
+.hero-trust{display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;animation:fadeUp 0.5s 0.28s ease both}
+.trust-item{display:flex;align-items:center;gap:7px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.78rem;font-weight:600;color:var(--ink-muted)}
 .trust-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.hero-right{
-  position:relative;overflow:hidden;background:var(--dark);
-}
-.hero-photo{
-  width:100%;height:100%;object-fit:cover;object-position:center top;
-  opacity:0.9;
-  animation:fadeIn 0.8s 0.3s ease both;opacity:0;
-}
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to right,var(--bg) 0%,transparent 15%),
-             linear-gradient(to top,var(--dark) 0%,transparent 40%);
-  pointer-events:none;
-}
-.hero-stat-badge{
-  position:absolute;bottom:2.5rem;right:2rem;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-radius:10px;padding:1.1rem 1.4rem;text-align:center;
-  animation:fadeUp 0.7s 0.7s ease both;opacity:0;
-}
-.stat-badge-num{font-size:2rem;font-weight:700;color:#6dbf96;line-height:1}
-.stat-badge-label{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px}
+.hero-right{position:relative;overflow:hidden;background:var(--dark)}
+.hero-photo{width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.9}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 15%),linear-gradient(to top,var(--dark) 0%,transparent 40%);pointer-events:none}
+.hero-badge{position:absolute;bottom:2.5rem;right:2rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px);border-radius:10px;padding:1.1rem 1.4rem;text-align:center}
+.hero-badge-num{font-size:2rem;font-weight:700;color:#6dbf96;line-height:1}
+.hero-badge-label{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px}
 
 /* TICKER */
 .ticker-wrap{background:var(--green);padding:0.65rem 0;overflow:hidden}
 .ticker-track{display:flex;width:max-content;animation:ticker 32s linear infinite;will-change:transform}
-.ticker-item{
-  white-space:nowrap;padding:0 2.5rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.68rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;
-  color:rgba(255,255,255,0.9);
-  display:flex;align-items:center;gap:1rem;
-}
+.ticker-item{white-space:nowrap;padding:0 2.5rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:1rem}
 .ticker-item::before{content:"◆";font-size:0.4rem;opacity:0.5}
 
 /* PROOF BAR */
-.proof-bar{
-  background:var(--bg-card);
-  border-bottom:1px solid var(--border);
-  padding:1.5rem 5%;
-  display:flex;align-items:center;justify-content:center;
-  gap:0;flex-wrap:wrap;
-}
-.proof-stat{
-  text-align:center;padding:0.5rem 3rem;
-  border-right:1px solid var(--border);
-}
+.proof-bar{background:var(--bg-card);border-bottom:1px solid var(--border);padding:1.5rem 5%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
+.proof-stat{text-align:center;padding:0.5rem 3rem;border-right:1px solid var(--border)}
 .proof-stat:last-child{border-right:none}
-.proof-num{
-  font-size:1.9rem;font-weight:700;color:var(--green);
-  line-height:1;font-variant-numeric:tabular-nums;
-}
-.proof-label{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.7rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--ink-muted);margin-top:4px;
-}
+.proof-num{font-size:1.9rem;font-weight:700;color:var(--green);line-height:1}
+.proof-label{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.7rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--ink-muted);margin-top:4px}
+
+/* SECTIONS */
+.section{padding:5rem 5%;max-width:1260px;margin:0 auto}
+.sec-label{display:inline-flex;align-items:center;gap:8px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:0.9rem}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--green);display:block}
+.sec-title{font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;letter-spacing:-0.02em;color:var(--ink);max-width:640px}
+.sec-title em{font-style:italic;color:var(--green)}
 
 /* PROBLEM */
-.problem-section{padding:5rem 5% 5rem;max-width:1260px;margin:0 auto}
-.sec-label{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--green);margin-bottom:0.9rem;
-}
-.sec-label::before{content:'';width:20px;height:2px;background:var(--green);display:block}
-.sec-title{
-  font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;
-  letter-spacing:-0.02em;color:var(--ink);max-width:640px;
-}
-.sec-title em{font-style:italic;color:var(--green)}
-.problem-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1.25rem;margin-top:3rem;
-}
-.p-card{
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--radius-lg);padding:1.75rem;
-  position:relative;overflow:hidden;
-  transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;
-}
-.p-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--green);transform:scaleX(0);transform-origin:left;
-  transition:transform 0.3s ease;
-}
-.p-card:hover{transform:translateY(-4px);border-color:rgba(26,92,56,0.2);box-shadow:var(--shadow)}
+.problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:3rem}
+.p-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;position:relative;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s}
+.p-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease}
+.p-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .p-card:hover::after{transform:scaleX(1)}
 .p-icon{font-size:1.75rem;margin-bottom:1rem;line-height:1}
 .p-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;color:var(--ink)}
-.p-card p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.88rem;color:var(--ink-soft);line-height:1.75}
+.p-card p{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.88rem;color:var(--ink-soft);line-height:1.75}
 
 /* ABOUT */
 .about-bg{background:var(--dark);padding:5.5rem 0}
-.about-inner{
-  max-width:1260px;margin:0 auto;padding:0 5%;
-  display:grid;grid-template-columns:420px 1fr;gap:5rem;align-items:center;
-}
-.about-img-wrap{
-  position:relative;flex-shrink:0;
-}
-.about-photo{
-  width:100%;height:520px;object-fit:cover;object-position:center top;
-  border-radius:var(--radius-lg);display:block;
-}
-.about-badge{
-  position:absolute;bottom:-1rem;right:-1rem;
-  background:var(--green);color:#fff;
-  padding:1.1rem 1.4rem;border-radius:var(--radius-lg);
-  text-align:center;
-  box-shadow:var(--shadow-lg);
-}
+.about-inner{max-width:1260px;margin:0 auto;padding:0 5%;display:grid;grid-template-columns:420px 1fr;gap:5rem;align-items:center}
+.about-img-wrap{position:relative;flex-shrink:0}
+.about-photo{width:100%;height:520px;object-fit:cover;object-position:center top;border-radius:var(--radius-lg);display:block}
+.about-badge{position:absolute;bottom:-1rem;right:-1rem;background:var(--green);color:#fff;padding:1.1rem 1.4rem;border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-lg)}
 .about-badge-big{font-size:1.8rem;font-weight:700;line-height:1}
-.about-badge-small{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85;margin-top:3px}
+.about-badge-small{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85;margin-top:3px}
 .about-content .sec-label{color:#6dbf96}
 .about-content .sec-label::before{background:#6dbf96}
 .about-content .sec-title{color:#fff}
 .about-content .sec-title em{color:#6dbf96}
-.about-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.95rem;color:rgba(255,255,255,0.62);
-  line-height:1.85;margin-top:1.5rem;
-}
+.about-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.95rem;color:rgba(255,255,255,0.62);line-height:1.85;margin-top:1.5rem}
 .about-body p{margin-bottom:1rem}
 .about-values{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-top:1.75rem}
-.av{
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);
-  border-radius:var(--radius);padding:1rem 1.15rem;
-}
+.av{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:var(--radius);padding:1rem 1.15rem}
 .av-icon{font-size:1rem;margin-bottom:0.35rem}
-.av-title{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
-.av-text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.42);line-height:1.6}
+.av-title{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
+.av-text{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.42);line-height:1.6}
 .about-contacts{display:flex;flex-wrap:wrap;gap:1.25rem;margin-top:1.75rem}
-.ac-item{
-  display:flex;align-items:center;gap:8px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.85rem;color:rgba(255,255,255,0.55);
-}
-.ac-item a{color:#6dbf96;transition:opacity 0.2s}
-.ac-item a:hover{opacity:0.8;text-decoration:underline}
+.ac-item{display:flex;align-items:center;gap:8px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.55)}
+.ac-item a{color:#6dbf96}
+.ac-item a:hover{text-decoration:underline}
 
 /* HOW */
 .how-bg{background:var(--green-pale);padding:5.5rem 0}
 .how-inner{max-width:1260px;margin:0 auto;padding:0 5%}
 .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem;position:relative}
-.how-steps::before{
-  content:'';position:absolute;top:44px;left:16.66%;right:16.66%;
-  height:1px;background:rgba(26,92,56,0.18);z-index:0;
-}
+.how-steps::before{content:'';position:absolute;top:44px;left:16.66%;right:16.66%;height:1px;background:rgba(26,92,56,0.18);z-index:0}
 .step{text-align:center;position:relative;z-index:1}
-.step-circle{
-  width:88px;height:88px;border-radius:50%;
-  background:var(--bg-card);border:2px solid var(--green);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1.5rem;
-  font-size:1.75rem;font-weight:700;color:var(--green);
-  box-shadow:0 4px 20px rgba(26,92,56,0.12);
-  transition:transform 0.3s,box-shadow 0.3s;
-}
+.step-circle{width:88px;height:88px;border-radius:50%;background:var(--bg-card);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.75rem;font-weight:700;color:var(--green);box-shadow:0 4px 20px rgba(26,92,56,0.12);transition:transform 0.3s,box-shadow 0.3s}
 .step:hover .step-circle{transform:scale(1.07);box-shadow:0 8px 32px rgba(26,92,56,0.2)}
 .step h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem}
-.step p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.87rem;color:var(--ink-soft);line-height:1.72}
+.step p{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.87rem;color:var(--ink-soft);line-height:1.72}
 
 /* NICHES */
-.niches-section{padding:5rem 5%;max-width:1260px;margin:0 auto}
 .niche-grid{display:flex;flex-wrap:wrap;gap:0.65rem;margin-top:2.25rem}
-.niche-tag{
-  padding:0.5rem 1.1rem;border:1.5px solid var(--border-strong);border-radius:100px;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.82rem;font-weight:500;color:var(--ink-soft);
-  cursor:default;transition:all 0.2s;
-}
+.niche-tag{padding:0.5rem 1.1rem;border:1.5px solid var(--border-strong);border-radius:100px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.82rem;font-weight:500;color:var(--ink-soft);cursor:pointer;transition:all 0.2s}
 .niche-tag:hover{background:var(--green-light);border-color:var(--green);color:var(--green);transform:translateY(-2px)}
-.niches-note{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.9rem;color:var(--ink-muted);font-style:italic;margin-top:1.75rem}
+.niches-note{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.9rem;color:var(--ink-muted);font-style:italic;margin-top:1.75rem}
 
 /* OFFER */
 .offer-bg{background:var(--gold-pale);border-top:1px solid rgba(184,144,12,0.14);border-bottom:1px solid rgba(184,144,12,0.14);padding:5.5rem 0}
 .offer-inner{max-width:1260px;margin:0 auto;padding:0 5%}
 .offer-grid{display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start;margin-top:3rem}
 .offer-list{list-style:none;display:flex;flex-direction:column;gap:1rem}
-.offer-list li{
-  display:flex;align-items:flex-start;gap:0.9rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.92rem;color:var(--ink-soft);line-height:1.65;
-}
-.offer-check{
-  width:22px;height:22px;min-width:22px;border-radius:50%;
-  background:var(--green-light);border:1.5px solid var(--green);
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.65rem;color:var(--green);font-weight:700;margin-top:1px;
-}
-.offer-box{
-  background:var(--bg-card);border:1px solid rgba(184,144,12,0.25);
-  border-radius:var(--radius-lg);padding:2.25rem;text-align:center;
-  box-shadow:var(--shadow-lg);position:sticky;top:90px;
-}
-.offer-tag{
-  display:inline-block;background:var(--green-light);color:var(--green);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  padding:0.3rem 0.9rem;border-radius:100px;margin-bottom:1rem;
-}
-.offer-price-main{font-size:3.5rem;font-weight:700;color:var(--ink);line-height:1;margin-bottom:0.25rem}
-.offer-price-was{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.85rem;color:var(--ink-muted);margin-bottom:1.5rem;
-}
-.offer-price-was s{color:var(--ink-muted)}
-.offer-guarantee{
-  margin-top:1.25rem;padding:0.9rem 1rem;
-  background:var(--green-pale);border-radius:var(--radius);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.78rem;color:var(--green);font-weight:500;line-height:1.55;
-}
-.offer-direct{
-  display:block;text-align:center;margin-top:0.75rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.8rem;color:var(--ink-muted);padding:0.65rem;border:1px solid var(--border-strong);border-radius:4px;
-  transition:all 0.2s;
-}
+.offer-list li{display:flex;align-items:flex-start;gap:0.9rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.92rem;color:var(--ink-soft);line-height:1.65}
+.offer-check{width:22px;height:22px;min-width:22px;border-radius:50%;background:var(--green-light);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--green);font-weight:700;margin-top:1px}
+.offer-box{background:var(--bg-card);border:1px solid rgba(184,144,12,0.25);border-radius:var(--radius-lg);padding:2.25rem;text-align:center;box-shadow:var(--shadow-lg);position:sticky;top:90px}
+.offer-tag{display:inline-block;background:var(--green-light);color:var(--green);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:100px;margin-bottom:1rem}
+.offer-price{font-size:3.5rem;font-weight:700;color:var(--ink);line-height:1;margin-bottom:0.25rem}
+.offer-was{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.85rem;color:var(--ink-muted);margin-bottom:1.5rem}
+.offer-was s{color:var(--ink-muted)}
+.offer-guarantee{margin-top:1.25rem;padding:0.9rem 1rem;background:var(--green-pale);border-radius:var(--radius);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.78rem;color:var(--green);font-weight:500;line-height:1.55}
+.offer-direct{display:block;text-align:center;margin-top:0.75rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.8rem;color:var(--ink-muted);padding:0.65rem;border:1px solid var(--border-strong);border-radius:4px;transition:all 0.2s}
 .offer-direct:hover{border-color:var(--green);color:var(--green)}
 
 /* IMG STRIP */
-.img-strip{display:grid;grid-template-columns:1fr 2.5fr 1fr;height:340px;overflow:hidden;max-width:100%}
-.strip-side{
-  background:rgba(14,26,18,0.92);
-  display:flex;align-items:center;justify-content:center;
-  padding:1.5rem;
-}
+.img-strip{display:grid;grid-template-columns:1fr 2.5fr 1fr;height:340px;overflow:hidden}
+.strip-side{background:rgba(14,26,18,0.92);display:flex;align-items:center;justify-content:center;padding:1.5rem}
 .strip-side p{font-size:1.05rem;font-style:italic;color:rgba(255,255,255,0.8);text-align:center;line-height:1.5;max-width:180px}
 .strip-center{overflow:hidden}
 .strip-center img{width:100%;height:100%;object-fit:cover;object-position:center 10%}
 
 /* TESTIMONIALS */
-.testimonials-bg{background:var(--bg-card);padding:5.5rem 0}
+.test-bg{background:var(--bg-card);padding:5.5rem 0}
 .test-inner{max-width:1260px;margin:0 auto;padding:0 5%}
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.test-card{
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--radius-lg);padding:1.75rem;
-  transition:transform 0.25s,box-shadow 0.25s;
-  position:relative;
-}
+.test-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;transition:transform 0.25s,box-shadow 0.25s}
 .test-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .test-stars{color:var(--gold);font-size:0.85rem;letter-spacing:2px;margin-bottom:0.85rem}
-.test-quote{
-  font-size:0.93rem;font-style:italic;color:var(--ink-soft);
-  line-height:1.8;margin-bottom:1.25rem;
-  padding-left:1.25rem;border-left:2px solid var(--green);
-}
-.test-name{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink)}
-.test-role{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.78rem;color:var(--ink-muted);margin-top:2px}
+.test-quote{font-size:0.93rem;font-style:italic;color:var(--ink-soft);line-height:1.8;margin-bottom:1.25rem;padding-left:1.25rem;border-left:2px solid var(--green)}
+.test-name{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink)}
+.test-role{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.78rem;color:var(--ink-muted);margin-top:2px}
 
 /* FAQ */
-.faq-section{padding:5rem 5%;max-width:800px;margin:0 auto}
+.faq-wrap{max-width:800px;margin:0 auto;padding:5rem 5%}
 .faq-list{border-top:1px solid var(--border);margin-top:2.75rem}
 .faq-item{border-bottom:1px solid var(--border)}
-.faq-btn{
-  width:100%;background:none;border:none;text-align:left;cursor:pointer;
-  padding:1.25rem 0;
-  display:flex;justify-content:space-between;align-items:center;gap:1rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.95rem;font-weight:600;color:var(--ink);
-  transition:color 0.2s;
-}
+.faq-btn{width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.95rem;font-weight:600;color:var(--ink);transition:color 0.2s}
 .faq-btn:hover{color:var(--green)}
-.faq-icon{
-  width:28px;height:28px;min-width:28px;border-radius:50%;
-  background:var(--green-light);color:var(--green);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;font-weight:700;transition:transform 0.3s,background 0.2s;
-}
+.faq-icon{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--green-light);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;transition:transform 0.3s,background 0.2s}
 .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--green);color:#fff}
 .faq-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
 .faq-item.open .faq-body{max-height:400px}
-.faq-body-inner{
-  padding-bottom:1.25rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.9rem;color:var(--ink-soft);line-height:1.8;
-}
+.faq-body-inner{padding-bottom:1.25rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.9rem;color:var(--ink-soft);line-height:1.8}
 
-/* CTA / FORM */
+/* CTA FORM */
 .cta-bg{background:var(--dark);padding:6rem 0}
 .cta-inner{max-width:620px;margin:0 auto;padding:0 5%;text-align:center}
-.cta-inner .sec-label{justify-content:center;color:#6dbf96}
-.cta-inner .sec-label::before{background:#6dbf96}
+.cta-label{display:inline-flex;align-items:center;gap:8px;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#6dbf96;margin-bottom:0.9rem}
+.cta-label::before{content:'';width:20px;height:2px;background:#6dbf96;display:block}
 .cta-h2{font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.1;color:#fff;margin:1rem 0 1.25rem;letter-spacing:-0.02em}
 .cta-h2 em{color:#6dbf96;font-style:italic}
-.cta-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:1rem;color:rgba(255,255,255,0.5);margin-bottom:2.5rem}
-.audit-form{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius-lg);padding:2.25rem;text-align:left;
-}
+.cta-sub{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:1rem;color:rgba(255,255,255,0.5);margin-bottom:2.5rem}
+.audit-form{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);padding:2.25rem;text-align:left}
 .form-row{margin-bottom:1.1rem}
-.form-label{
-  display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(255,255,255,0.4);margin-bottom:0.45rem;
-}
-.form-input{
-  width:100%;background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.11);
-  border-radius:4px;padding:0.8rem 1rem;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.9rem;color:#fff;outline:none;
-  transition:border-color 0.2s,background 0.2s;
-  -webkit-appearance:none;
-}
+.form-label{display:block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.45rem}
+.form-input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:4px;padding:0.8rem 1rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.9rem;color:#fff;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
 .form-input::placeholder{color:rgba(255,255,255,0.22)}
 .form-input:focus{border-color:rgba(26,92,56,0.6);background:rgba(255,255,255,0.09)}
 textarea.form-input{resize:vertical;min-height:90px}
-.form-btn{
-  width:100%;margin-top:0.5rem;
-  padding:1rem;background:var(--green);color:#fff;border:none;
-  border-radius:4px;cursor:pointer;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.88rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
-  transition:background 0.2s,transform 0.15s;
-  box-shadow:0 4px 20px rgba(26,92,56,0.4);
-}
+.form-btn{width:100%;margin-top:0.5rem;padding:1rem;background:var(--green);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.2s,transform 0.15s;box-shadow:0 4px 20px rgba(26,92,56,0.4)}
 .form-btn:hover{background:var(--green-hover);transform:translateY(-2px)}
 .form-btn:disabled{opacity:0.65;cursor:not-allowed;transform:none}
-.form-note{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  text-align:center;font-size:0.73rem;color:rgba(255,255,255,0.28);margin-top:0.85rem;
-}
+.form-note{font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;font-size:0.73rem;color:rgba(255,255,255,0.28);margin-top:0.85rem}
 .form-success{display:none;text-align:center;padding:3rem 1rem}
 .form-success h3{font-size:1.8rem;font-weight:700;color:#6dbf96;margin-bottom:0.75rem}
-.form-success p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:1.8}
+.form-success p{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:1.8}
 
 /* CONTACT BAR */
-.contact-bar{
-  background:var(--green);padding:1.5rem 5%;
-  display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
-}
+.contact-bar{background:var(--green);padding:1.5rem 5%;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
 .cb-item{display:flex;align-items:center;gap:8px}
-.cb-item a{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-  font-size:0.88rem;font-weight:600;color:rgba(255,255,255,0.9);
-  transition:color 0.2s;
-}
+.cb-item a{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.88rem;font-weight:600;color:rgba(255,255,255,0.9);transition:color 0.2s}
 .cb-item a:hover{color:#fff;text-decoration:underline}
-.cb-icon{font-size:0.95rem}
 
 /* FOOTER */
-footer{
-  background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);
-  padding:2rem 5%;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-}
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .foot-logo{display:flex;align-items:center;gap:9px}
 .foot-logo img{width:28px;height:28px;object-fit:contain;border-radius:4px;opacity:0.75}
 .foot-brand{font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.38)}
-.foot-copy{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:0.73rem;color:rgba(255,255,255,0.22)}
+.foot-copy{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:0.73rem;color:rgba(255,255,255,0.22)}
 
-/* ========================================
-   MOBILE RESPONSIVE
-   ======================================== */
+/* MOBILE */
 @media(max-width:768px){
-  /* Hero */
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-right{height:360px;order:-1}
+  .hero-right{height:340px;order:-1}
   .hero-overlay{background:linear-gradient(to top,var(--bg) 0%,transparent 50%)}
   .hero-left{padding:2.5rem 5% 3.5rem}
   .hero h1{font-size:2.2rem}
   .hero-sub{font-size:0.95rem}
   .hero-ctas{flex-direction:column;gap:0.75rem}
   .btn-primary,.btn-ghost{width:100%;justify-content:center;padding:1rem}
-  .hero-trust{gap:1rem}
-  .hero-stat-badge{right:1rem;bottom:1rem}
-
-  /* Nav */
+  .hero-badge{right:1rem;bottom:1rem}
   .nav-links{display:none}
   .hamburger{display:flex}
-
-  /* Proof bar */
   .proof-bar{gap:0;padding:1rem 4%}
   .proof-stat{padding:0.75rem 1.5rem;border-right:none;border-bottom:1px solid var(--border);width:50%}
   .proof-stat:nth-child(odd){border-right:1px solid var(--border)}
   .proof-stat:nth-last-child(-n+2){border-bottom:none}
   .proof-num{font-size:1.6rem}
-
-  /* Problem */
-  .problem-section{padding:3.5rem 5%}
+  .section{padding:3.5rem 5%}
   .problem-grid{grid-template-columns:1fr;gap:1rem}
-
-  /* About */
   .about-bg{padding:3.5rem 0}
   .about-inner{grid-template-columns:1fr;gap:2rem;padding:0 5%}
-  .about-photo{height:320px;width:100%}
+  .about-photo{height:300px;width:100%}
   .about-badge{bottom:-0.5rem;right:0.5rem}
   .about-values{grid-template-columns:1fr}
-
-  /* How */
   .how-bg{padding:3.5rem 0}
+  .how-inner{padding:0 5%}
   .how-steps{grid-template-columns:1fr;gap:2rem}
   .how-steps::before{display:none}
-
-  /* Niches */
-  .niches-section{padding:3.5rem 5%}
-
-  /* Offer */
   .offer-bg{padding:3.5rem 0}
   .offer-inner{padding:0 5%}
   .offer-grid{grid-template-columns:1fr;gap:2rem}
   .offer-box{position:static}
-
-  /* Image strip */
   .img-strip{grid-template-columns:1fr;height:auto}
-  .strip-side:first-child{display:none}
-  .strip-side:last-child{display:none}
-  .strip-center img{height:280px;width:100%}
-
-  /* Testimonials */
-  .testimonials-bg{padding:3.5rem 0}
+  .strip-side{display:none}
+  .strip-center img{height:260px;width:100%}
+  .test-bg{padding:3.5rem 0}
   .test-inner{padding:0 5%}
   .test-grid{grid-template-columns:1fr;gap:1.25rem}
-
-  /* FAQ */
-  .faq-section{padding:3.5rem 5%}
-
-  /* CTA */
+  .faq-wrap{padding:3.5rem 5%}
   .cta-bg{padding:3.5rem 0}
   .cta-inner{padding:0 5%}
   .audit-form{padding:1.5rem}
-
-  /* Contact bar */
-  .contact-bar{flex-direction:column;gap:0.75rem;align-items:center;padding:1.5rem 5%}
-
-  /* Footer */
+  .contact-bar{flex-direction:column;gap:0.75rem;padding:1.5rem 5%}
   footer{flex-direction:column;text-align:center;padding:1.75rem 5%}
   .foot-logo{justify-content:center}
 }
-
 @media(min-width:769px) and (max-width:1100px){
   .hero{grid-template-columns:58% 42%}
   .hero-left{padding:3.5rem 4% 3.5rem 6%}
@@ -602,10 +299,9 @@ footer{
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="mainNav">
   <a class="nav-logo" href="#top">
-    <img src="logo.png" alt="Georgia J Chase" width="36" height="36">
+    <img src="logo.png" alt="Georgia J Chase logo" width="36" height="36">
     <span class="nav-logo-text">Georgia J Chase</span>
   </a>
   <ul class="nav-links">
@@ -619,7 +315,8 @@ footer{
     <span></span><span></span><span></span>
   </button>
 </nav>
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+
+<div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mob-link">About</a>
   <a href="#how" class="mob-link">How It Works</a>
   <a href="#services" class="mob-link">Services</a>
@@ -627,7 +324,6 @@ footer{
   <a href="#audit" class="mob-link mob-cta">Get Free Audit</a>
 </div>
 
-<!-- HERO -->
 <section id="top" class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">Free SEO Audit for Business Owners Worldwide</div>
@@ -645,94 +341,46 @@ footer{
     </div>
   </div>
   <div class="hero-right">
-    <img class="hero-photo" src="hero.png" alt="Georgia J Chase SEO specialist" width="600" height="800" loading="eager" fetchpriority="high">
+    <img class="hero-photo" src="hero.png" alt="Georgia J Chase SEO specialist" width="600" height="800" loading="eager">
     <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-stat-badge">
-      <div class="stat-badge-num">87%</div>
-      <div class="stat-badge-label">of sites have critical SEO issues</div>
+    <div class="hero-badge">
+      <div class="hero-badge-num">87%</div>
+      <div class="hero-badge-label">of sites have critical SEO issues</div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item">Free SEO Audit</span>
-    <span class="ticker-item">More Traffic</span>
-    <span class="ticker-item">More Clients</span>
-    <span class="ticker-item">Higher Rankings</span>
-    <span class="ticker-item">More Revenue</span>
-    <span class="ticker-item">Better Visibility</span>
-    <span class="ticker-item">Worldwide Service</span>
-    <span class="ticker-item">Free SEO Audit</span>
-    <span class="ticker-item">More Traffic</span>
-    <span class="ticker-item">More Clients</span>
-    <span class="ticker-item">Higher Rankings</span>
-    <span class="ticker-item">More Revenue</span>
-    <span class="ticker-item">Better Visibility</span>
-    <span class="ticker-item">Worldwide Service</span>
+    <span class="ticker-item">Free SEO Audit</span><span class="ticker-item">More Traffic</span><span class="ticker-item">More Clients</span><span class="ticker-item">Higher Rankings</span><span class="ticker-item">More Revenue</span><span class="ticker-item">Better Visibility</span><span class="ticker-item">Worldwide Service</span><span class="ticker-item">Free SEO Audit</span><span class="ticker-item">More Traffic</span><span class="ticker-item">More Clients</span><span class="ticker-item">Higher Rankings</span><span class="ticker-item">More Revenue</span><span class="ticker-item">Better Visibility</span><span class="ticker-item">Worldwide Service</span>
   </div>
 </div>
 
-<!-- PROOF BAR -->
 <div class="proof-bar">
-  <div class="proof-stat">
-    <div class="proof-num" data-target="47">0</div>
-    <div class="proof-label">Audits Completed</div>
-  </div>
-  <div class="proof-stat">
-    <div class="proof-num" data-target="12">0</div>
-    <div class="proof-label">Industries Served</div>
-  </div>
-  <div class="proof-stat">
-    <div class="proof-num">48h</div>
-    <div class="proof-label">Audit Turnaround</div>
-  </div>
-  <div class="proof-stat">
-    <div class="proof-num">Free</div>
-    <div class="proof-label">Every Single Audit</div>
-  </div>
+  <div class="proof-stat"><div class="proof-num" data-target="47">0</div><div class="proof-label">Audits Completed</div></div>
+  <div class="proof-stat"><div class="proof-num" data-target="12">0</div><div class="proof-label">Industries Served</div></div>
+  <div class="proof-stat"><div class="proof-num">48h</div><div class="proof-label">Audit Turnaround</div></div>
+  <div class="proof-stat"><div class="proof-num">Free</div><div class="proof-label">Every Single Audit</div></div>
 </div>
 
-<!-- PROBLEM -->
-<section class="problem-section" id="problem">
+<section class="section" id="problem">
   <div class="reveal">
     <div class="sec-label">The Real Problem</div>
     <h2 class="sec-title">Why your website is <em>invisible</em> to the people ready to buy</h2>
   </div>
   <div class="problem-grid">
-    <div class="p-card reveal d1">
-      <div class="p-icon">&#128269;</div>
-      <h3>Google Cannot Find You</h3>
-      <p>If your pages are not properly structured Google skips over you and sends your ideal customers straight to your competition. You are invisible to buyers who are already searching for exactly what you offer.</p>
-    </div>
-    <div class="p-card reveal d2">
-      <div class="p-icon">&#128241;</div>
-      <h3>Mobile Visitors Leave Instantly</h3>
-      <p>Over 63% of all web traffic comes from mobile devices. If your site loads slowly or displays poorly on a phone, more than half your potential clients leave before reading a single word and never come back.</p>
-    </div>
-    <div class="p-card reveal d1">
-      <div class="p-icon">&#128683;</div>
-      <h3>No Clear Path to Contact You</h3>
-      <p>Even visitors who are genuinely interested will not reach out if your site makes it confusing. Buried contact pages, unclear calls to action and cluttered layouts silently destroy conversions every single day.</p>
-    </div>
-    <div class="p-card reveal d2">
-      <div class="p-icon">&#128202;</div>
-      <h3>Ranking for the Wrong Keywords</h3>
-      <p>Appearing for searches nobody makes is worse than not ranking at all. It tricks you into thinking your SEO is working while the buyers who are ready to pay never actually find your business.</p>
-    </div>
+    <div class="p-card reveal d1"><div class="p-icon">&#128269;</div><h3>Google Cannot Find You</h3><p>If your pages are not properly structured Google skips over you and sends your ideal customers straight to your competition. You are invisible to buyers already searching for what you offer.</p></div>
+    <div class="p-card reveal d2"><div class="p-icon">&#128241;</div><h3>Mobile Visitors Leave Instantly</h3><p>Over 63% of all web traffic comes from mobile devices. If your site loads slowly or looks broken on a phone, more than half your potential clients leave before reading a single word.</p></div>
+    <div class="p-card reveal d1"><div class="p-icon">&#128683;</div><h3>No Clear Path to Contact You</h3><p>Even visitors who are genuinely interested will not reach out if your site makes it confusing. Buried contact pages and unclear calls to action silently destroy conversions every day.</p></div>
+    <div class="p-card reveal d2"><div class="p-icon">&#128202;</div><h3>Ranking for the Wrong Keywords</h3><p>Appearing for searches nobody makes is worse than not ranking at all. It tricks you into thinking SEO is working while buyers who are ready to pay never find your business.</p></div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="about-bg" id="about">
   <div class="about-inner">
     <div class="about-img-wrap reveal">
-      <img class="about-photo" src="about.png" alt="Georgia J Chase SEO and website audit expert" width="420" height="520" loading="lazy">
-      <div class="about-badge">
-        <div class="about-badge-big">Free</div>
-        <div class="about-badge-small">Every Audit</div>
-      </div>
+      <img class="about-photo" src="about.png" alt="Georgia J Chase SEO expert" width="420" height="520" loading="lazy">
+      <div class="about-badge"><div class="about-badge-big">Free</div><div class="about-badge-small">Every Audit</div></div>
     </div>
     <div class="about-content reveal d2">
       <div class="sec-label">About Georgia</div>
@@ -740,12 +388,12 @@ footer{
       <div class="about-body">
         <p>Most business owners have no idea their website is actively pushing clients away. The site looks fine to them because they built it or paid for it. But Google sees something completely different and so do visitors who arrive and leave in seconds.</p>
         <p>I am Georgia J Chase, an SEO and website audit specialist. I work with business owners across every industry and every country to uncover the real reasons their website is not converting visitors into paying clients. Then I fix it.</p>
-        <p>My approach is simple. I audit your website for free, I tell you everything I find in plain language, and if you want me to fix it I will. If you want to handle it yourself the audit is still yours to keep. No pressure, no complicated packages, just results.</p>
+        <p>My approach is simple. I audit your website for free, tell you everything I find in plain language, and if you want me to fix it I will. If you want to handle it yourself the audit is still yours to keep. No pressure, just results.</p>
       </div>
       <div class="about-values">
-        <div class="av"><div class="av-icon">&#127919;</div><div class="av-title">Results First</div><div class="av-text">Every recommendation I make is tied to more traffic, more leads or more sales. No fluff.</div></div>
-        <div class="av"><div class="av-icon">&#128172;</div><div class="av-title">Plain English Always</div><div class="av-text">No jargon. No confusing reports. Just clear explanations any business owner can act on.</div></div>
-        <div class="av"><div class="av-icon">&#127758;</div><div class="av-title">Every Industry</div><div class="av-text">Restaurants, law firms, salons, e-commerce, coaches, clinics. If you have a website I can help.</div></div>
+        <div class="av"><div class="av-icon">&#127919;</div><div class="av-title">Results First</div><div class="av-text">Every recommendation tied to more traffic, leads or sales. No fluff.</div></div>
+        <div class="av"><div class="av-icon">&#128172;</div><div class="av-title">Plain English Always</div><div class="av-text">No jargon. Clear explanations any business owner can act on immediately.</div></div>
+        <div class="av"><div class="av-icon">&#127758;</div><div class="av-title">Every Industry</div><div class="av-text">Restaurants, law firms, salons, e-commerce, coaches, clinics. I can help.</div></div>
         <div class="av"><div class="av-icon">&#128274;</div><div class="av-title">No Obligation</div><div class="av-text">The audit is genuinely free. What happens next is completely your decision.</div></div>
       </div>
       <div class="about-contacts">
@@ -756,7 +404,6 @@ footer{
   </div>
 </section>
 
-<!-- HOW -->
 <section class="how-bg" id="how">
   <div class="how-inner">
     <div class="reveal">
@@ -764,60 +411,24 @@ footer{
       <h2 class="sec-title">Three simple steps to a website that <em>actually converts</em></h2>
     </div>
     <div class="how-steps">
-      <div class="step reveal d1">
-        <div class="step-circle">1</div>
-        <h3>Submit Your Website</h3>
-        <p>Fill in the short form below. Tell me your URL and the biggest challenge your business is facing right now when it comes to getting clients online.</p>
-      </div>
-      <div class="step reveal d2">
-        <div class="step-circle">2</div>
-        <h3>I Run Your Personal Audit</h3>
-        <p>I personally review your entire site checking SEO structure, keyword visibility, mobile experience, page speed and conversion path. Real eyes, real findings. Not a bot.</p>
-      </div>
-      <div class="step reveal d3">
-        <div class="step-circle">3</div>
-        <h3>You Decide What Happens Next</h3>
-        <p>I send you everything I find with a clear priority list. If you want me to fix it I will send a clear proposal. If you prefer to handle it yourself the audit is yours to keep.</p>
-      </div>
+      <div class="step reveal d1"><div class="step-circle">1</div><h3>Submit Your Website</h3><p>Fill in the short form below. Tell me your URL and the biggest challenge your business faces getting clients online right now.</p></div>
+      <div class="step reveal d2"><div class="step-circle">2</div><h3>I Run Your Personal Audit</h3><p>I personally review your entire site checking SEO structure, keyword visibility, mobile experience, page speed and conversion path. Real eyes, real findings. Not a bot.</p></div>
+      <div class="step reveal d3"><div class="step-circle">3</div><h3>You Decide What Happens Next</h3><p>I send you everything I find with a clear priority list. If you want me to fix it I send a proposal. If you prefer to handle it yourself the audit is yours to keep free.</p></div>
     </div>
   </div>
 </section>
 
-<!-- NICHES -->
-<section class="niches-section" id="niches">
+<section class="section" id="niches">
   <div class="reveal">
     <div class="sec-label">Who I Help</div>
     <h2 class="sec-title">Business owners <em>across every niche and every country</em></h2>
   </div>
   <div class="niche-grid reveal">
-    <span class="niche-tag">Restaurants and Cafes</span>
-    <span class="niche-tag">Salons and Beauty</span>
-    <span class="niche-tag">Law Firms</span>
-    <span class="niche-tag">Real Estate Agents</span>
-    <span class="niche-tag">E Commerce Stores</span>
-    <span class="niche-tag">Dental Clinics</span>
-    <span class="niche-tag">Consultants</span>
-    <span class="niche-tag">Coaches and Trainers</span>
-    <span class="niche-tag">Contractors and Trades</span>
-    <span class="niche-tag">Accountants</span>
-    <span class="niche-tag">Photographers</span>
-    <span class="niche-tag">Wedding Planners</span>
-    <span class="niche-tag">Retail Shops</span>
-    <span class="niche-tag">Therapists</span>
-    <span class="niche-tag">Architects</span>
-    <span class="niche-tag">Marketing Agencies</span>
-    <span class="niche-tag">Travel and Tourism</span>
-    <span class="niche-tag">Non Profits</span>
-    <span class="niche-tag">Gyms and Fitness Studios</span>
-    <span class="niche-tag">Medical Practices</span>
-    <span class="niche-tag">Financial Advisors</span>
-    <span class="niche-tag">Online Course Creators</span>
-    <span class="niche-tag">Any Business With a Website</span>
+    <span class="niche-tag">Restaurants and Cafes</span><span class="niche-tag">Salons and Beauty</span><span class="niche-tag">Law Firms</span><span class="niche-tag">Real Estate Agents</span><span class="niche-tag">E Commerce Stores</span><span class="niche-tag">Dental Clinics</span><span class="niche-tag">Consultants</span><span class="niche-tag">Coaches and Trainers</span><span class="niche-tag">Contractors and Trades</span><span class="niche-tag">Accountants</span><span class="niche-tag">Photographers</span><span class="niche-tag">Wedding Planners</span><span class="niche-tag">Retail Shops</span><span class="niche-tag">Therapists</span><span class="niche-tag">Architects</span><span class="niche-tag">Marketing Agencies</span><span class="niche-tag">Travel and Tourism</span><span class="niche-tag">Non Profits</span><span class="niche-tag">Gyms and Fitness</span><span class="niche-tag">Medical Practices</span><span class="niche-tag">Financial Advisors</span><span class="niche-tag">Online Course Creators</span><span class="niche-tag">Any Business With a Website</span>
   </div>
-  <p class="niches-note reveal">If your business has a website and you want more customers from it, I can help. No niche is too small or too large.</p>
+  <p class="niches-note reveal">If your business has a website and you want more customers from it, I can help.</p>
 </section>
 
-<!-- OFFER -->
 <section class="offer-bg" id="services">
   <div class="offer-inner">
     <div class="reveal">
@@ -827,20 +438,20 @@ footer{
     <div class="offer-grid">
       <ul class="offer-list reveal">
         <li><span class="offer-check">&#10003;</span>Full SEO health check covering titles, meta descriptions, headings and site structure</li>
-        <li><span class="offer-check">&#10003;</span>Keyword visibility report showing whether Google can match you to what your buyers search</li>
-        <li><span class="offer-check">&#10003;</span>Mobile experience review showing exactly how your site performs on phones and tablets</li>
-        <li><span class="offer-check">&#10003;</span>Page speed analysis identifying what is slowing you down and driving visitors away before they convert</li>
-        <li><span class="offer-check">&#10003;</span>Conversion flow check confirming whether visitors can actually find how to contact or buy from you</li>
-        <li><span class="offer-check">&#10003;</span>Google indexing status showing which of your pages are actually visible in search results</li>
+        <li><span class="offer-check">&#10003;</span>Keyword visibility report showing whether Google matches you to what your buyers search</li>
+        <li><span class="offer-check">&#10003;</span>Mobile experience review showing how your site performs on phones and tablets</li>
+        <li><span class="offer-check">&#10003;</span>Page speed analysis identifying what is slowing you down and driving visitors away</li>
+        <li><span class="offer-check">&#10003;</span>Conversion flow check confirming whether visitors can actually find how to contact you</li>
+        <li><span class="offer-check">&#10003;</span>Google indexing status showing which of your pages are visible in search results</li>
         <li><span class="offer-check">&#10003;</span>Competitor gap analysis revealing what your top competitors are doing that you are not</li>
-        <li><span class="offer-check">&#10003;</span>Priority fix list giving you a clear ranked order of what to address first for maximum impact</li>
-        <li><span class="offer-check">&#10003;</span>Plain English summary with zero jargon so you understand every single finding immediately</li>
-      </ul>
-      <div class="offer-box reveal d3">
-        <div class="offer-tag">Completely Free</div>
-        <div class="offer-price-main">/bin/sh</div>
-        <div class="offer-price-was">Value: <s>50</s> &mdash; yours at no cost</div>
-        <a href="#audit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:0.75rem">Claim My Free Audit</a>
+        <li><span class="offer-check">&#10003;</span>Priority fix list giving you a clear ranked order of what to address first</li>
+        <li><span class="offer-check">&#10003;</span>Plain English summary with zero jargon so you understand every finding immediately</li>
+</ul>
+<div class="offer-box reveal d3">
+  <div class="offer-tag">Completely Free</div>
+  <div class="offer-price">$0</div>
+  <div class="offer-was">Value: <s>$250</s> &mdash; yours at no cost</div>
+  <a href="#audit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:0.75rem">Claim My Free Audit</a>
         <a href="mailto:chasegeorgiaj@gmail.com" class="offer-direct">Or email me directly</a>
         <div class="offer-guarantee">Every audit is reviewed personally by Georgia J Chase. Not a bot. Not a template. A real professional looking at your real website.</div>
       </div>
@@ -848,125 +459,70 @@ footer{
   </div>
 </section>
 
-<!-- IMAGE STRIP -->
 <div class="img-strip" aria-hidden="true">
   <div class="strip-side"><p>Your site should be working for you around the clock</p></div>
-  <div class="strip-center">
-    <img src="strip.png" alt="Georgia J Chase" width="800" height="340" loading="lazy">
-  </div>
+  <div class="strip-center"><img src="strip.png" alt="Georgia J Chase" width="800" height="340" loading="lazy"></div>
   <div class="strip-side"><p>Let us find out why it is not and fix it today</p></div>
 </div>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials-bg">
+<section class="test-bg">
   <div class="test-inner">
     <div class="reveal">
       <div class="sec-label">What Clients Say</div>
       <h2 class="sec-title">Business owners who stopped <em>guessing and started growing</em></h2>
     </div>
     <div class="test-grid">
-      <div class="test-card reveal d1">
-        <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="test-quote">Georgia found issues on my website I had no idea existed. Within weeks of fixing them my phone started ringing with new enquiries. The audit paid for itself many times over.</p>
-        <div class="test-name">James R., Fort Collins CO</div>
-        <div class="test-role">Owner, Peak Plumbing and Heating</div>
-      </div>
-      <div class="test-card reveal d2">
-        <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="test-quote">I had been paying for ads that were not converting. Georgia showed me my website was turning visitors away before they even saw my offer. Fixing that changed everything for my store.</p>
-        <div class="test-name">Amara T., London UK</div>
-        <div class="test-role">Founder, Vivid Thread Boutique</div>
-      </div>
-      <div class="test-card reveal d3">
-        <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="test-quote">As a therapist I had no idea about SEO. Georgia explained everything so clearly and the results spoke for themselves. My booking calendar filled up within the first month after the fixes.</p>
-        <div class="test-name">Dr. Sarah M., Toronto ON</div>
-        <div class="test-role">Private Practice Therapist</div>
-      </div>
+      <div class="test-card reveal d1"><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="test-quote">Georgia found issues on my website I had no idea existed. Within weeks of fixing them my phone started ringing with new enquiries. The audit paid for itself many times over.</p><div class="test-name">James R., Fort Collins CO</div><div class="test-role">Owner, Peak Plumbing and Heating</div></div>
+      <div class="test-card reveal d2"><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="test-quote">I had been paying for ads that were not converting. Georgia showed me my website was turning visitors away before they saw my offer. Fixing that changed everything for my store.</p><div class="test-name">Amara T., London UK</div><div class="test-role">Founder, Vivid Thread Boutique</div></div>
+      <div class="test-card reveal d3"><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="test-quote">As a therapist I had no idea about SEO. Georgia explained everything so clearly and the results spoke for themselves. My booking calendar filled up within the first month.</p><div class="test-name">Dr. Sarah M., Toronto ON</div><div class="test-role">Private Practice Therapist</div></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq-section" id="faq">
+<section class="faq-wrap" id="faq">
   <div class="reveal">
     <div class="sec-label">Questions</div>
     <h2 class="sec-title">Everything you are probably wondering</h2>
   </div>
   <div class="faq-list reveal">
-    <div class="faq-item">
-      <button class="faq-btn">Is the audit genuinely free? What is the catch?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">There is no catch. The audit is my way of showing you the value I bring before you invest a single penny. I believe that if I clearly show you what is broken on your website you will want help fixing it. But there is absolutely no obligation and no pressure whatsoever.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn">How long does the audit take to arrive?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">I personally deliver your audit within 48 hours of receiving your submission. I review every site myself so I take the time to do it properly rather than sending you a generic automated report.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn">What happens after I receive the audit?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">You receive your full audit with a clear prioritised list of what to fix. From there it is entirely your decision. You can use it yourself, pass it to your developer, or ask me to handle the fixes. If you choose to work with me I will send a transparent proposal with clear pricing. No surprises and no pressure in any direction.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn">I am not technical at all. Will I understand it?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">Absolutely. I write every audit in plain English with no jargon. You will know exactly what the issue is, why it matters to your specific business and what needs to happen to fix it. You do not need any technical knowledge whatsoever to benefit from the audit.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn">Do you work with businesses outside the US?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">Yes. SEO has no borders. I work with business owners across every country. As long as you have a website and you want more customers from it, we can work together regardless of where you are based.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn">How much do the SEO fixes cost?<span class="faq-icon">+</span></button>
-      <div class="faq-body"><div class="faq-body-inner">The cost depends entirely on what your website needs because every business is different. After your free audit, if you would like me to implement the fixes, I will put together a clear and transparent proposal. There are no hidden fees and no long term contracts.</div></div>
-    </div>
+    <div class="faq-item"><button class="faq-btn">Is the audit genuinely free? What is the catch?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">There is no catch. The audit is my way of showing you the value I bring before you invest a single penny. I believe that if I clearly show you what is broken you will want help fixing it. But there is absolutely no obligation and no pressure whatsoever.</div></div></div>
+    <div class="faq-item"><button class="faq-btn">How long does the audit take to arrive?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">I personally deliver your audit within 48 hours of receiving your submission. I review every site myself so I take the time to do it properly rather than sending a generic automated report.</div></div></div>
+    <div class="faq-item"><button class="faq-btn">What happens after I receive the audit?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">You receive your full audit with a clear prioritised list of what to fix. From there it is entirely your decision. You can use it yourself, pass it to your developer, or ask me to handle the fixes. If you choose to work with me I will send a transparent proposal with clear pricing. No surprises, no pressure.</div></div></div>
+    <div class="faq-item"><button class="faq-btn">I am not technical at all. Will I understand it?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">Absolutely. I write every audit in plain English with no jargon. You will know exactly what the issue is, why it matters and what needs to happen to fix it. You do not need any technical knowledge to benefit from the audit.</div></div></div>
+    <div class="faq-item"><button class="faq-btn">Do you work with businesses outside the US?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">Yes. SEO has no borders. I work with business owners across every country. As long as you have a website and want more customers from it, we can work together regardless of where you are based.</div></div></div>
+    <div class="faq-item"><button class="faq-btn">How much do the SEO fixes cost?<span class="faq-icon">+</span></button><div class="faq-body"><div class="faq-body-inner">The cost depends entirely on what your website needs because every business is different. After your free audit, if you would like me to implement the fixes, I will put together a clear and transparent proposal. There are no hidden fees and no long term contracts.</div></div></div>
   </div>
 </section>
 
-<!-- CTA FORM -->
 <section class="cta-bg" id="audit">
   <div class="cta-inner">
-    <div class="sec-label">Get Started Today</div>
+    <div class="cta-label">Get Started Today</div>
     <h2 class="cta-h2">Ready to find out what your site is <em>really costing you?</em></h2>
     <p class="cta-sub">Fill in the form below. Georgia will personally review your site and send your full free audit within 48 hours.</p>
-    <form class="audit-form" id="auditForm" action="https://formspree.io/f/xyzgpqjw" method="POST">
-      <div class="form-row">
-        <label class="form-label" for="fname">Your Full Name</label>
-        <input class="form-input" type="text" id="fname" name="name" placeholder="Jane Smith" required>
-      </div>
-      <div class="form-row">
-        <label class="form-label" for="femail">Business Email</label>
-        <input class="form-input" type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required>
-      </div>
-      <div class="form-row">
-        <label class="form-label" for="furl">Website URL</label>
-        <input class="form-input" type="url" id="furl" name="website" placeholder="https://yourbusiness.com" required>
-      </div>
-      <div class="form-row">
-        <label class="form-label" for="fniche">Your Industry</label>
-        <input class="form-input" type="text" id="fniche" name="industry" placeholder="e.g. Dental Clinic, E-commerce Store, Law Firm">
-      </div>
-      <div class="form-row">
-        <label class="form-label" for="fchallenge">Biggest Challenge Right Now</label>
-        <textarea class="form-input" id="fchallenge" name="challenge" placeholder="e.g. We get traffic but nobody contacts us, or we cannot be found on Google at all..."></textarea>
-      </div>
+    <form class="audit-form" id="auditForm" action="https://formspree.io/f/mreyovlw" method="POST">
+      <div class="form-row"><label class="form-label" for="fname">Your Full Name</label><input class="form-input" type="text" id="fname" name="name" placeholder="Jane Smith" required></div>
+      <div class="form-row"><label class="form-label" for="femail">Business Email</label><input class="form-input" type="email" id="femail" name="email" placeholder="jane@yourbusiness.com" required></div>
+      <div class="form-row"><label class="form-label" for="furl">Website URL</label><input class="form-input" type="url" id="furl" name="website" placeholder="https://yourbusiness.com" required></div>
+      <div class="form-row"><label class="form-label" for="fphone">Your Phone Number (optional)</label><input class="form-input" type="tel" id="fphone" name="phone" placeholder="e.g. +1 555 000 1234"></div>
+      <div class="form-row"><label class="form-label" for="fniche">Your Industry</label><input class="form-input" type="text" id="fniche" name="industry" placeholder="e.g. Dental Clinic, E-commerce Store, Law Firm"></div>
+      <div class="form-row"><label class="form-label" for="fchallenge">Biggest Challenge Right Now</label><textarea class="form-input" id="fchallenge" name="challenge" placeholder="e.g. We get traffic but nobody contacts us, or we cannot be found on Google at all..."></textarea></div>
       <input type="hidden" name="_replyto" value="chasegeorgiaj@gmail.com">
-      <input type="hidden" name="_subject" value="New Free SEO Audit Request from Website">
+      <input type="hidden" name="_subject" value="New Free SEO Audit Request">
       <button type="submit" class="form-btn" id="formBtn">Send My Website for a Free Audit</button>
       <p class="form-note">No spam. No sales pressure. Just your personal audit within 48 hours.</p>
     </form>
     <div class="form-success" id="formSuccess">
       <h3>Audit Request Received</h3>
-      <p>Thank you. Georgia will personally review your site and send your full audit to your inbox within 48 hours. Please check your email including spam folder.</p>
+      <p>Thank you. Georgia will personally review your site and send your full audit to your inbox within 48 hours. Please check your email including your spam folder.</p>
     </div>
   </div>
 </section>
 
-<!-- CONTACT BAR -->
 <div class="contact-bar">
-  <div class="cb-item"><span class="cb-icon">&#9993;</span><a href="mailto:chasegeorgiaj@gmail.com">chasegeorgiaj@gmail.com</a></div>
-  <div class="cb-item"><span class="cb-icon">&#128222;</span><a href="tel:+16397632098">+1 639 763 2098</a></div>
+  <div class="cb-item"><span>&#9993;</span><a href="mailto:chasegeorgiaj@gmail.com">chasegeorgiaj@gmail.com</a></div>
+  <div class="cb-item"><span>&#128222;</span><a href="tel:+16397632098">+1 639 763 2098</a></div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="foot-logo">
     <img src="logo.png" alt="Georgia J Chase" width="28" height="28">
@@ -976,11 +532,9 @@ footer{
 </footer>
 
 <script>
-// Nav scroll effect
 const nav=document.getElementById('mainNav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
 
-// Hamburger
 const ham=document.getElementById('hamburger');
 const mob=document.getElementById('mobileMenu');
 ham.addEventListener('click',()=>{
@@ -993,32 +547,20 @@ mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   document.body.style.overflow='';
 }));
 
-// Scroll reveal
-const revealObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
-},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-// Count up numbers in proof bar
-const countObs=new IntersectionObserver(entries=>{
+const co=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(!e.isIntersecting)return;
-    const el=e.target;
-    const target=parseInt(el.dataset.target);
-    if(!target)return;
-    countObs.unobserve(el);
-    let start=0;
-    const step=Math.ceil(target/40);
-    const timer=setInterval(()=>{
-      start+=step;
-      if(start>=target){el.textContent=target;clearInterval(timer);}
-      else el.textContent=start;
-    },35);
+    const el=e.target;const t=parseInt(el.dataset.target);
+    if(!t)return;co.unobserve(el);
+    let s=0;const step=Math.ceil(t/40);
+    const timer=setInterval(()=>{s+=step;if(s>=t){el.textContent=t;clearInterval(timer);}else el.textContent=s;},35);
   });
 },{threshold:0.5});
-document.querySelectorAll('[data-target]').forEach(el=>countObs.observe(el));
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
 
-// FAQ
 document.querySelectorAll('.faq-item').forEach(item=>{
   item.querySelector('.faq-btn').addEventListener('click',()=>{
     const isOpen=item.classList.contains('open');
@@ -1027,7 +569,10 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   });
 });
 
-// Form
+document.querySelectorAll('.niche-tag').forEach(tag=>{
+  tag.addEventListener('click',()=>document.getElementById('audit').scrollIntoView({behavior:'smooth'}));
+});
+
 const form=document.getElementById('auditForm');
 const success=document.getElementById('formSuccess');
 const btn=document.getElementById('formBtn');
@@ -1037,22 +582,11 @@ form.addEventListener('submit',async e=>{
   try{
     const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
     if(res.ok){form.style.display='none';success.style.display='block';}
-    else{
-      btn.disabled=false;btn.textContent='Send My Website for a Free Audit';
-      alert('Something went wrong. Please email chasegeorgiaj@gmail.com directly.');
-    }
+    else{btn.disabled=false;btn.textContent='Send My Website for a Free Audit';alert('Something went wrong. Please email chasegeorgiaj@gmail.com directly.');}
   }catch{
     btn.disabled=false;btn.textContent='Send My Website for a Free Audit';
     alert('Something went wrong. Please email chasegeorgiaj@gmail.com directly.');
   }
-});
-
-// Niche tag micro interaction
-document.querySelectorAll('.niche-tag').forEach(tag=>{
-  tag.addEventListener('click',()=>{
-    document.getElementById('audit').scrollIntoView({behavior:'smooth'});
-  });
-  tag.style.cursor='pointer';
 });
 </script>
 </body>
