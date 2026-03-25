@@ -1184,11 +1184,6 @@ form.addEventListener('submit',async function(e){
   }catch(err){btn.disabled=false;btn.textContent='Send My Website for My Free Audit';alert('Something went wrong. Please email chasegeorgiaj@gmail.com directly.');}
 });
 
-// TOASTS
-var toasts=['Sarah from <strong>Dallas TX</strong> just claimed her free audit','James from <strong>London UK</strong> just received his results','Priya from <strong>Toronto ON</strong> secured spot 9 of 20','Marcus from <strong>Sydney AU</strong> just submitted his website','Nicole from <strong>Houston TX</strong> just claimed her 10% discount'],ti=0;
-function showToast(){var t=document.getElementById('toast'),tx=document.getElementById('toast-text');tx.innerHTML=toasts[ti%toasts.length];ti++;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},4000);}
-setTimeout(function(){showToast();setInterval(showToast,18000);},8000);
-
 // EXIT INTENT
 var exitShown=false;
 document.addEventListener('mouseleave',function(e){if(e.clientY<=0&&!exitShown&&!sessionStorage.getItem('exitSeen')){exitShown=true;sessionStorage.setItem('exitSeen','1');document.getElementById('exitOv').classList.add('show');}});
